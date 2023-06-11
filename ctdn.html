@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown Timer</title>
+</head>
+<body>
+  <div class="home">
+  <a href="index.html"><img src="R.png" id="house"></a>
+  </div>
+  <div class="bubbles">
+    <span style="--i:11;"></span>
+    <span style="--i:12;"></span>
+    <span style="--i:19;"></span>
+    <span style="--i:22;"></span>
+    <span style="--i:18;"></span>
+    <span style="--i:24;"></span>
+    <span style="--i:16;"></span>
+    <span style="--i:20;"></span>
+    <span style="--i:17;"></span>
+    <span style="--i:26;"></span>
+    <span style="--i:21;"></span>
+    <span style="--i:28;"></span>
+    <span style="--i:15;"></span>
+    <span style="--i:14;"></span>
+    <span style="--i:13;"></span>
+    <span style="--i:22;"></span>
+    <span style="--i:18;"></span>
+    <span style="--i:24;"></span>
+    <span style="--i:16;"></span>
+    <span style="--i:20;"></span>
+    <span style="--i:17;"></span>
+    <span style="--i:26;"></span>
+    <span style="--i:21;"></span>
+    <span style="--i:28;"></span>
+    <span style="--i:15;"></span>
+    <span style="--i:14;"></span>
+    <span style="--i:13;"></span>
+    <span style="--i:22;"></span>
+    <span style="--i:10;"></span>
+    <span style="--i:22;"></span>
+    <span style="--i:14;"></span>
+    <span style="--i:24;"></span>
+    <span style="--i:26;"></span>
+    <span style="--i:21;"></span>
+    <span style="--i:28;"></span>
+    <span style="--i:15;"></span>
+    <span style="--i:14;"></span>
+    <span style="--i:13;"></span>
+    <span style="--i:22;"></span>
+  </div>
+  
+  <div class="time">
+    <div id="timer">0h 0m 0s</div><br>
+  <label for="hours">Hours:</label>
+  <input type="number" id="hours" min="0" step="1"><br><br>
+  <label for="minutes">Minutes:</label>
+  <input type="number" id="minutes" min="0" max="59" step="1"><br><br>
+  <label for="seconds">Seconds:</label>
+  <input type="number" id="seconds" min="0" max="59" step="1"><br><br>
+  <button onclick="startTimer()">Start</button><br><br>
+  <audio id="audio" src="Don_Omar_ft_Lucenzo_-_Danza_Kuduro.mp3"></audio>
+  </div> 
+
+  <style>
+    body{
+      background-color: #316879;
+    }
+
+    .bubbles{
+  position: relative;
+  display: flex;
+}
+
+#house{
+  width: 8%;
+  max-width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:   #7fe7dc;
+  border-radius: 25%;
+}
+
+#house:hover{
+  cursor: pointer;
+  border-radius: 0%;
+}
+
+.bubbles span{
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: #ced7d8;
+  margin: 0 4px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px #4fc3dc44,
+  0 0 50px #4fc3dc ,
+  0 0 100px #4fc3dc;
+  animation: animate 15s linear infinite;
+  animation-duration: calc(120s / var(--i));
+}
+.bubbles span:nth-child(even)
+{
+  background: #f47a60;
+  box-shadow: 0 0 0 10px #ff2d7544,
+  0 0 50px  #ff2d75 ,
+  0 0 100px  #ff2d75;
+  
+}
+@keyframes animate
+{
+  0%
+  {
+    transform: translateY(100vh) scale(0);
+  }
+  100%
+  {
+    transform: translateY(-10vh) scale(0.7);
+  }
+}
+
+    #timer{
+      font-size: 210% ;
+    }
+
+    .time{
+      background-color: #7fe7dc;
+      width: 65%;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 200%;
+      border-radius: 20%;
+      margin-top: 12%;
+      margin-bottom: 30%;
+      margin-left: 15%;
+      margin-right: 30%;
+      border-style: dashed;
+      border-color: #f47a60 ;
+    }
+
+    button{
+      background-color: #ced7d8;
+      width: 15%;
+      border-radius: 30%;
+    }
+
+    button:hover{
+      cursor: pointer;
+      background-color:#f47a60;
+      border-style: none;
+    }
+  </style>
+
+  <script>
+    function startTimer() {
+      var hoursInput = document.getElementById("hours");
+      var minutesInput = document.getElementById("minutes");
+      var secondsInput = document.getElementById("seconds");
+
+      var hours = parseInt(hoursInput.value) || 0;
+      var minutes = parseInt(minutesInput.value) || 0;
+      var seconds = parseInt(secondsInput.value) || 0;
+
+      var totalDuration = hours * 3600 + minutes * 60 + seconds;
+      if (totalDuration <= 0) {
+        alert("Please enter a valid duration!");
+        return;
+      }
+
+      var timerDisplay = document.getElementById("timer");
+      var audio = document.getElementById("audio");
+
+      var countdown = setInterval(function() {
+        var remainingHours = Math.floor(totalDuration / 3600);
+        var remainingMinutes = Math.floor((totalDuration % 3600) / 60);
+        var remainingSeconds = totalDuration % 60;
+
+        timerDisplay.innerHTML = remainingHours + "h " + remainingMinutes + "m " + remainingSeconds + "s remaining";
+
+        if (totalDuration <= 0) {
+          clearInterval(countdown);
+          timerDisplay.innerHTML = "Countdown completed!";
+          audio.play();
+        }
+
+        totalDuration--;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
